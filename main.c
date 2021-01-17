@@ -11,6 +11,6 @@
 int main(){
     Rede rede;
     rede.nClinicas = 0;
-
+    
     menu(rede);
 }
