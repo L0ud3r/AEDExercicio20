@@ -35,7 +35,7 @@ void menu(Rede rede){
         criarFichaClinica(rede);
         break;
     case 2:
-        
+        mostrarListaClinicas(rede);
         break;
     case 3:
         
@@ -82,99 +82,153 @@ void criarFichaClinica(Rede rede){
     }
     
     strcpy(rede.clinicas[rede.nClinicas].nomeClinica, nomeAux);
+    rede.clinicas[rede.nClinicas].id = rede.nClinicas + 1;
+    rede.clinicas[rede.nClinicas].nFuncionarios = 0;
+
     rede.nClinicas++;
+    menu(rede);
 }
 
-//Funcao testa valores hardcode
-/*
-void testarValores(Clinica *clinica, int n){
+//CONCLUIDO
+void mostrarListaClinicas(Rede rede){
+    int opcao;
 
-    int id = 0;
+    apresentacaoTitulo();
 
-//--------PARTE CLINICA---------
-    clinica[0].nFuncionarios = 2;
-    strcpy(clinica[0].nomeClinica, "Clinica de Enfias");
+    printf("\nInsira -1 para retroceder\nEscolha uma clinica:\n\n");
 
-//--------PARTE FUNCIONARIOS---------
-    strcpy(clinica[0].funcionarios[0].nome, "Pedro");
-    clinica[0].funcionarios[0].idade = 20;
-    clinica[0].funcionarios[0].profissao = 1;
-    clinica[0].funcionarios[0].genero = 'm';
-    clinica[0].funcionarios[0].vencimento = 1750.00;
-    clinica[0].funcionarios[0].nCompromissos = 1;
-    strcpy(clinica[0].funcionarios[0].calendario[0].nome, "Sr.Antonio");
-    clinica[0].funcionarios[0].calendario[0].sns = 542136485;
-    strcpy(clinica[0].funcionarios[0].calendario[0].dataTeste, "16/03/2021");
-    
-
-    strcpy(clinica[0].funcionarios[1].nome, "Josefina");
-    clinica[0].funcionarios[1].idade = 23;
-    clinica[0].funcionarios[1].profissao = 2;
-    clinica[0].funcionarios[1].genero = 'f';
-    clinica[0].funcionarios[1].vencimento = 2400.00;
-    clinica[0].funcionarios[1].nCompromissos = 2;
-    strcpy(clinica[0].funcionarios[1].calendario[0].nome, "Sr.Josue");
-    clinica[0].funcionarios[1].calendario[0].sns = 54821236;
-    strcpy(clinica[0].funcionarios[1].calendario[0].dataTeste, "15/05/2022");
-    strcpy(clinica[0].funcionarios[1].calendario[1].nome, "Sra.Delfina");
-    clinica[0].funcionarios[1].calendario[1].sns = 542136485;
-    strcpy(clinica[0].funcionarios[1].calendario[1].dataTeste, "14/02/2021");
-
-//--------PARTE CLINICA---------
-    clinica[1].nFuncionarios = 3;
-    strcpy(clinica[1].nomeClinica, "Clinica Privada de Braga");
-
-//--------PARTE FUNCIONARIOS---------
-    strcpy(clinica[1].funcionarios[0].nome, "Augusto");
-    clinica[1].funcionarios[0].idade = 20;
-    clinica[1].funcionarios[0].profissao = 1;
-    clinica[1].funcionarios[0].genero = 'm';
-    clinica[1].funcionarios[0].vencimento = 1750.00;
-    clinica[1].funcionarios[0].nCompromissos = 3;
-    strcpy(clinica[1].funcionarios[0].calendario[0].nome, "Sr.Josue");
-    clinica[1].funcionarios[0].calendario[0].sns = 54821236;
-    strcpy(clinica[1].funcionarios[0].calendario[0].dataTeste, "15/05/2022");
-    strcpy(clinica[1].funcionarios[0].calendario[1].nome, "Sra.Delfina");
-    clinica[1].funcionarios[0].calendario[1].sns = 54213648;
-    strcpy(clinica[1].funcionarios[0].calendario[1].dataTeste, "14/02/2021");
-    strcpy(clinica[1].funcionarios[0].calendario[2].nome, "Sr.Marco");
-    clinica[1].funcionarios[0].calendario[2].sns = 46854263;
-    strcpy(clinica[1].funcionarios[0].calendario[2].dataTeste, "15/05/2022");
-
-    strcpy(clinica[1].funcionarios[1].nome, "Rita");
-    clinica[1].funcionarios[1].idade = 23;
-    clinica[1].funcionarios[1].profissao = 2;
-    clinica[1].funcionarios[1].genero = 'f';
-    clinica[1].funcionarios[1].vencimento = 2400.00;
-    clinica[1].funcionarios[1].nCompromissos = 1;
-    strcpy(clinica[1].funcionarios[1].calendario[0].nome, "Sra.Celeste");
-    clinica[1].funcionarios[1].calendario[0].sns = 45657841;
-    strcpy(clinica[1].funcionarios[1].calendario[0].dataTeste, "03/03/2022");
-
-
-    strcpy(clinica[1].funcionarios[2].nome, "Jorge");
-    clinica[1].funcionarios[2].idade = 45;
-    clinica[1].funcionarios[2].profissao = 1;
-    clinica[1].funcionarios[2].genero = 'm';
-    clinica[1].funcionarios[2].vencimento = 4800.00;
-    clinica[1].funcionarios[2].nCompromissos = 1;
-    strcpy(clinica[1].funcionarios[2].calendario[0].nome, "Sr.Jorge");
-    clinica[1].funcionarios[2].calendario[0].sns = 87564215;
-    strcpy(clinica[1].funcionarios[2].calendario[0].dataTeste, "12/03/2022");
-
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < rede.nClinicas; i++)
     {
-        for (int j = 0; j < clinica[i].nFuncionarios; j++)
-        {
-            clinica[i].funcionarios[j].id = id + 1;
-        }
-        
+        printf("[%d] - %s\n", rede.clinicas[i].id, rede.clinicas[i].nomeClinica);
+    }
+
+    printf("Clinica -> ");
+    scanf("%d", &opcao);
+
+    while (opcao < -1 && opcao > rede.nClinicas + 1)
+    {
+        printf("Insira uma clinica valida-> ");
+        scanf("%d", &opcao);
     }
     
-}*/
+    if (opcao == -1)
+    {
+        menu(rede);
+    }
+    
+
+    menuClinica(rede.clinicas[opcao - 1]);    
+}
+
+//Por fazer
+void menuClinica(Clinica clinica){
+    int opcao;
+    
+    apresentacaoTitulo();
+
+    printf("\n[1] ADICIONAR FUNCIONARIO   [2] MARCAR CONSULTA   [3] VER FICHA FUNCIONARIO   [4] APAGAR CLINICA(por fazer)");
+    printf("\n\nInsira a sua opcao: ");
+    scanf("%d", &opcao);
+    fflush(stdin);
+
+    while (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4)
+    {
+        printf("Insira a sua opcao: ");
+        scanf("%d", &opcao);
+        fflush(stdin);
+    }
+
+    switch (opcao)
+    {
+    case 1:
+        criarFichaCliente(clinica);
+        break;
+    case 2:
+        
+        break;
+    case 3:
+        
+        break;
+    case 4:
+        
+        break;
+    default:
+        break;
+    }
+}
+
+//CONCLUIDO
+void criarFichaCliente(Clinica clinica){
+    char nomeAux[TAMNOME];
+
+    apresentacaoTitulo();
+
+    printf("\nPara sair insira 'sair'\n");
+    printf("NOME FUNCIONARIO: ");
+    fgets(nomeAux, TAMNOME, stdin);
+    nomeAux[strlen(nomeAux) - 1] = '\0';
+    
+    if (strcasecmp(nomeAux, "sair") == 0)
+    {
+        menuClinica(clinica);
+    }
+
+    strcpy(clinica.funcionarios[clinica.nFuncionarios].nome, nomeAux);
+
+    printf("IDADE: ");
+    scanf("%d", &clinica.funcionarios[clinica.nFuncionarios].idade);
+
+    while (clinica.funcionarios[clinica.nFuncionarios].idade < 0)
+    {
+        printf("IDADE: ");
+        scanf("%d", &clinica.funcionarios[clinica.nFuncionarios].idade);
+    }
+
+    fflush(stdin);
+    printf("GENERO: ");
+    scanf("%c", &clinica.funcionarios[clinica.nFuncionarios].genero);
+    fflush(stdin);
+
+    while (clinica.funcionarios[clinica.nFuncionarios].genero != 'm' && clinica.funcionarios[clinica.nFuncionarios].genero != 'M'
+            && clinica.funcionarios[clinica.nFuncionarios].genero != 'f' && clinica.funcionarios[clinica.nFuncionarios].genero != 'F')
+    {
+        printf("GENERO: ");
+        scanf("%c", &clinica.funcionarios[clinica.nFuncionarios].genero);
+        fflush(stdin);
+    }
+
+    printf("\n[1] Medico   [2] Enfermeiro   [3] Auxiliar de saude\n");
+    printf("PROFISSAO: ");
+    scanf("%d", &clinica.funcionarios[clinica.nFuncionarios].profissao);
+
+    while (clinica.funcionarios[clinica.nFuncionarios].profissao != 1 && clinica.funcionarios[clinica.nFuncionarios].profissao != 2
+            && clinica.funcionarios[clinica.nFuncionarios].profissao != 3)
+    {
+        printf("\n[1] Medico   [2] Enfermeiro   [3] Auxiliar de saude\n");
+        printf("PROFISSAO: ");
+        scanf("%d", &clinica.funcionarios[clinica.nFuncionarios].profissao);
+    }
+
+    printf("VENCIMENTO: ");
+    scanf("%f", &clinica.funcionarios[clinica.nFuncionarios].vencimento);
+
+    while (clinica.funcionarios[clinica.nFuncionarios].vencimento < 0)
+    {
+        printf("VENCIMENTO: ");
+        scanf("%f", &clinica.funcionarios[clinica.nFuncionarios].vencimento);
+    }
+    
+
+    clinica.funcionarios[clinica.nFuncionarios].id = clinica.nFuncionarios + 1;
+    clinica.nFuncionarios++;
+
+    menuClinica(clinica);
+}
 
 //Exercicio1 CONCLUIDO
 void resumoIdadesVencimentos(Rede rede){
+
+    apresentacaoTitulo();
 
     int somaTotalProfissionais, somaTotalIdades;
     float somaTotalVencimentosEnfMasc, somaTotalVencimentosEnfFem, somaTotalVencimentosMedMasc, somaTotalVencimentosMedFem, somaTotalVencimentosAuxMasc, somaTotalVencimentosAuxFem;
@@ -228,7 +282,7 @@ void resumoIdadesVencimentos(Rede rede){
 }
 
 //Exercicio2 CONCLUIDO
-void listarMedicos(Rede rede){
+void listarMedicosApenas(Rede rede){
 
     float somatorio = 0.0F;
     

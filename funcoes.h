@@ -23,6 +23,7 @@ typedef struct{
     char nomeClinica[TAMNOMECLINICA];
     Funcionario funcionarios[TAMFUNCIONARIOS];
     int nFuncionarios;
+    int id;
 } Clinica;
 
 typedef struct{
@@ -31,10 +32,13 @@ typedef struct{
 } Rede;
 
 void resumoIdadesVencimentos(Rede rede);
-void listarMedicos(Rede rede);
+void listarMedicosApenas(Rede rede);
+void mostrarListaClinicas(Rede rede);
 void contaAgenda(Rede rede, int opcao);
 void apresentaAgenda(Funcionario funcionario);
 void menu(Rede rede);
 void menuAjuda();
 void criarFichaClinica(Rede rede);
 void apresentacaoTitulo();
+void menuClinica(Clinica clinica);
+void criarFichaCliente(Clinica clinica);
