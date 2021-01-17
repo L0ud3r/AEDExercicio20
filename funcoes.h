@@ -41,4 +41,5 @@ void menuAjuda();
 void criarFichaClinica(Rede rede);
 void apresentacaoTitulo();
 void menuClinica(Clinica clinica);
-void criarFichaCliente(Clinica clinica);
+void criarFichaFuncionario(Clinica clinica);
+void marcarConsulta(Clinica clinica);

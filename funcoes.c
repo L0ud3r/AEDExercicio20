@@ -141,10 +141,10 @@ void menuClinica(Clinica clinica){
     switch (opcao)
     {
     case 1:
-        criarFichaCliente(clinica);
+        criarFichaFuncionario(clinica);
         break;
     case 2:
-        
+        marcarConsulta(clinica);
         break;
     case 3:
         
@@ -158,7 +158,7 @@ void menuClinica(Clinica clinica){
 }
 
 //CONCLUIDO
-void criarFichaCliente(Clinica clinica){
+void criarFichaFuncionario(Clinica clinica){
     char nomeAux[TAMNOME];
 
     apresentacaoTitulo();
@@ -220,9 +220,61 @@ void criarFichaCliente(Clinica clinica){
     
 
     clinica.funcionarios[clinica.nFuncionarios].id = clinica.nFuncionarios + 1;
+    clinica.funcionarios[clinica.nFuncionarios].nCompromissos = 0;
     clinica.nFuncionarios++;
 
     menuClinica(clinica);
+}
+
+void marcarConsulta(Clinica clinica){
+    int opcao, indice = -1;
+
+    printf("\nInsira -1 para retroceder\nEscolha um profissional:\n");
+
+    for (int i = 0; i < clinica.nFuncionarios; i++)
+    {   
+        if (clinica.funcionarios[i].profissao == 1 || clinica.funcionarios[i].profissao == 2){
+            printf("[%d] - %s ", clinica.funcionarios[i].id, clinica.funcionarios[i].nome);
+            
+            if (clinica.funcionarios[i].profissao == 1) printf("(medico/a)\n");
+            else if (clinica.funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+        }
+    }
+    printf("Profissional -> ");
+    scanf("%d", &opcao);
+
+    if (opcao == -1)
+    {
+        menuClinica(clinica);
+    }
+    
+
+    for (int i = 0; i < clinica.nFuncionarios; i++)
+    {
+        if (opcao == clinica.funcionarios[i].id)
+        {
+            indice = i;
+        }
+    }
+
+    while (indice == -1)
+    {
+        printf("Profissional -> ");
+        scanf("%d", &opcao);
+
+        for (int i = 0; i < clinica.nFuncionarios; i++)
+        {
+            if (opcao == clinica.funcionarios[i].id)
+            {
+                indice++;
+            }
+        }
+    }
+    
+    apresentacaoTitulo();
+    printf("\nInsira nome do docente: ");
+    fgets(clinica.funcionarios[indice].calendario[clinica.funcionarios[indice].nCompromissos].nome, TAMNOME, stdin);
+    clinica.funcionarios[indice].calendario[clinica.funcionarios[indice].nCompromissos].nome[strlen(clinica.funcionarios[indice].calendario[clinica.funcionarios[indice].nCompromissos].nome) - 1] = '\0';
 }
 
 //Exercicio1 CONCLUIDO
