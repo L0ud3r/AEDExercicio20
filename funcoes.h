@@ -35,10 +35,12 @@ void mostrarListaClinicas(Rede *rede);
 void contaAgenda(Rede *rede, int opcao);
 void apresentaAgenda(Funcionario funcionario);
 void menu(Rede *rede);
-void menuAjuda();
+void menuAjuda(Rede *rede);
 void criarFichaClinica(Rede *rede);
 void apresentacaoTitulo();
 void menuClinica(Clinica clinica, Rede *rede);
 void criarFichaFuncionario(Clinica clinica, Rede *rede);
 void marcarConsulta(Clinica clinica, Rede *rede);
-void verFichaFuncionario(Clinica clinica);
+void verFichaFuncionario(Clinica clinica, Rede *rede);
+
+void atribuirValoresTeste(Rede *rede);

@@ -13,6 +13,8 @@ int main(){
     rede = (Rede*)malloc(sizeof(Rede));
 
     rede->nClinicas = 0;
+
+    atribuirValoresTeste(rede);
     
     menu(rede);
 
