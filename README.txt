@@ -1,4 +1,10 @@
-Menu [1] e [2] da rede CONCLUIDO;
-Criar clinica completo;
-criarFichaCliente completo;
-Menu da clinica completo;
+verFichaFuncionario() CONCLUIDO;
+mostrarExercicios() Comecei/Porfazer;
+marcarConsulta() CONCLUIDO;
+
+
+
+POR FAZER:
+APAGAR CLINICAS E FUNCIONARIOS
+VERIFICAR OS EXERCICIOS
+VALORES TESTE

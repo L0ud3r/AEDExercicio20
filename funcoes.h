@@ -12,18 +12,15 @@ typedef struct{
 
 typedef struct{
     char nome[TAMNOME], genero;
-    int idade, profissao;
+    int idade, profissao, nCompromissos, id;
     float vencimento;
     Utente calendario[TAMAGENDA];
-    int nCompromissos;
-    int id;
 } Funcionario;
 
 typedef struct{
     char nomeClinica[TAMNOMECLINICA];
     Funcionario funcionarios[TAMFUNCIONARIOS];
-    int nFuncionarios;
-    int id;
+    int nFuncionarios, id;
 } Clinica;
 
 typedef struct{
@@ -31,15 +28,17 @@ typedef struct{
     int nClinicas;
 } Rede;
 
-void resumoIdadesVencimentos(Rede rede);
-void listarMedicosApenas(Rede rede);
-void mostrarListaClinicas(Rede rede);
-void contaAgenda(Rede rede, int opcao);
+void resumoIdadesVencimentos(Rede *rede);
+void listarMedicosApenas(Rede *rede);
+void mostrarExercicios(Rede *rede);
+void mostrarListaClinicas(Rede *rede);
+void contaAgenda(Rede *rede, int opcao);
 void apresentaAgenda(Funcionario funcionario);
-void menu(Rede rede);
+void menu(Rede *rede);
 void menuAjuda();
-void criarFichaClinica(Rede rede);
+void criarFichaClinica(Rede *rede);
 void apresentacaoTitulo();
-void menuClinica(Clinica clinica);
-void criarFichaFuncionario(Clinica clinica);
-void marcarConsulta(Clinica clinica);
+void menuClinica(Clinica clinica, Rede *rede);
+void criarFichaFuncionario(Clinica clinica, Rede *rede);
+void marcarConsulta(Clinica clinica, Rede *rede);
+void verFichaFuncionario(Clinica clinica);

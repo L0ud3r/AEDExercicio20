@@ -9,8 +9,12 @@
 */
 
 int main(){
-    Rede rede;
-    rede.nClinicas = 0;
+    Rede *rede;
+    rede = (Rede*)malloc(sizeof(Rede));
+
+    rede->nClinicas = 0;
     
     menu(rede);
+
+    free(rede);
 }
