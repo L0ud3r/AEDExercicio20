@@ -19,38 +19,59 @@ void atribuirValoresTeste(Rede *rede){
     rede->clinicas[1].nFuncionarios = 3;
     rede->clinicas[2].nFuncionarios = 3;
 
-    //CLinica 1
-    strcpy(rede->clinicas[0].funcionarios[0].nome, "Pedro");
-    rede->clinicas[0].funcionarios[0].id = 1;
-    rede->clinicas[0].funcionarios[0].idade = 25;
-    rede->clinicas[0].funcionarios[0].vencimento = 1550.50;
-    rede->clinicas[0].funcionarios[0].profissao = 1;
-    rede->clinicas[0].funcionarios[0].nCompromissos = 2;
-    strcpy(rede->clinicas[0].funcionarios[0].calendario[0].nome, "S.Antonio");
-    rede->clinicas[0].funcionarios[0].calendario[0].sns = 845761354;
-    strcpy(rede->clinicas[0].funcionarios[0].calendario[0].dataTeste, "17/12/2021");
-    strcpy(rede->clinicas[0].funcionarios[0].calendario[1].nome, "S.Maria");
-    rede->clinicas[0].funcionarios[0].calendario[1].sns = 778546213;
-    strcpy(rede->clinicas[0].funcionarios[0].calendario[1].dataTeste, "15/12/2021");
-    rede->clinicas[0].funcionarios[0].genero = 'm';
+    #pragma region Clinica1
 
-    strcpy(rede->clinicas[0].funcionarios[1].nome, "Joao");
-    rede->clinicas[0].funcionarios[1].idade = 2;
-    rede->clinicas[0].funcionarios[1].idade = 20;
-    rede->clinicas[0].funcionarios[1].vencimento = 2000.50;
-    rede->clinicas[0].funcionarios[1].profissao = 1;
-    rede->clinicas[0].funcionarios[1].nCompromissos = 1;
-    strcpy(rede->clinicas[0].funcionarios[1].calendario[0].nome, "S.Jose");
+        #pragma region Funcionario1
+        strcpy(rede->clinicas[0].funcionarios[0].nome, "Pedro");
+        rede->clinicas[0].funcionarios[0].id = 1;
+        rede->clinicas[0].funcionarios[0].idade = 25;
+        rede->clinicas[0].funcionarios[0].vencimento = 1550.50;
+        rede->clinicas[0].funcionarios[0].profissao = 1;
+        rede->clinicas[0].funcionarios[0].genero = 'm';
+        rede->clinicas[0].funcionarios[0].nCompromissos = 2;
+        strcpy(rede->clinicas[0].funcionarios[0].calendario[0].nome, "S.Antonio");
+        rede->clinicas[0].funcionarios[0].calendario[0].sns = 845761354;
+        strcpy(rede->clinicas[0].funcionarios[0].calendario[0].dataTeste, "17/12/2021");
+        strcpy(rede->clinicas[0].funcionarios[0].calendario[1].nome, "S.Maria");
+        rede->clinicas[0].funcionarios[0].calendario[1].sns = 778546213;
+        strcpy(rede->clinicas[0].funcionarios[0].calendario[1].dataTeste, "15/12/2021");
+        
+        #pragma endregion
+        
+        #pragma region Funcionario2
+        strcpy(rede->clinicas[0].funcionarios[1].nome, "Joao");
+        rede->clinicas[0].funcionarios[1].idade = 2;
+        rede->clinicas[0].funcionarios[1].idade = 20;
+        rede->clinicas[0].funcionarios[1].vencimento = 2000.50;
+        rede->clinicas[0].funcionarios[1].profissao = 1;
+        rede->clinicas[0].funcionarios[1].nCompromissos = 1;
+        rede->clinicas[0].funcionarios[1].genero = 'm';
+        strcpy(rede->clinicas[0].funcionarios[1].calendario[0].nome, "S.Jose");
+        rede->clinicas[0].funcionarios[1].calendario[0].sns = 789456132;
+        strcpy(rede->clinicas[0].funcionarios[1].calendario[0].dataTeste, "16/03/2021");
+        #pragma endregion
 
-    rede->clinicas[0].funcionarios[1].genero = 'm';
+        #pragma region Funcionario3
+        strcpy(rede->clinicas[0].funcionarios[2].nome, "Maria");
+        rede->clinicas[0].funcionarios[2].idade = 3;
+        rede->clinicas[0].funcionarios[2].idade = 35;
+        rede->clinicas[0].funcionarios[2].vencimento = 3500.50;
+        rede->clinicas[0].funcionarios[2].profissao = 2;
+        rede->clinicas[0].funcionarios[2].nCompromissos = 1;
+        rede->clinicas[0].funcionarios[2].genero = 'f';
+        strcpy(rede->clinicas[0].funcionarios[2].calendario[0].nome, "S.Manel");
+        rede->clinicas[0].funcionarios[2].calendario[0].sns = 784568722;
+        strcpy(rede->clinicas[0].funcionarios[2].calendario[0].dataTeste, "16/03/2021");
+        #pragma endregion
+    #pragma endregion
 
-    strcpy(rede->clinicas[0].funcionarios[2].nome, "Maria");
-    rede->clinicas[0].funcionarios[2].idade = 3;
-    rede->clinicas[0].funcionarios[2].idade = 35;
-    rede->clinicas[0].funcionarios[2].vencimento = 3500.50;
-    rede->clinicas[0].funcionarios[2].profissao = 2;
-    rede->clinicas[0].funcionarios[2].nCompromissos = 1;
-    rede->clinicas[0].funcionarios[2].genero = 'f';
+    #pragma region Clinica2
+
+    #pragma endregion
+
+    #pragma region Clinica3
+
+    #pragma endregion
 }
 
 
