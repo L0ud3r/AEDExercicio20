@@ -7,6 +7,9 @@
 #pragma region VALORES TESTE
 
 void atribuirValoresTeste(Rede *rede){
+    rede->nClinicas = 3;
+
+    //CLinica 1
     
 }
 
