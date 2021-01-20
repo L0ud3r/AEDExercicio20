@@ -18,10 +18,14 @@ void atribuirValoresTeste(Rede *rede){
     rede->clinicas[0].nFuncionarios = 3;
     rede->clinicas[1].nFuncionarios = 3;
     rede->clinicas[2].nFuncionarios = 3;
+    rede->clinicas[0].id = 1;
+    rede->clinicas[1].id = 2;
+    rede->clinicas[2].id = 3;
 
     #pragma region Clinica1
 
         #pragma region Funcionario1
+
         strcpy(rede->clinicas[0].funcionarios[0].nome, "Pedro");
         rede->clinicas[0].funcionarios[0].id = 1;
         rede->clinicas[0].funcionarios[0].idade = 25;
@@ -40,7 +44,7 @@ void atribuirValoresTeste(Rede *rede){
         
         #pragma region Funcionario2
         strcpy(rede->clinicas[0].funcionarios[1].nome, "Joao");
-        rede->clinicas[0].funcionarios[1].idade = 2;
+        rede->clinicas[0].funcionarios[1].id = 2;
         rede->clinicas[0].funcionarios[1].idade = 20;
         rede->clinicas[0].funcionarios[1].vencimento = 2000.50;
         rede->clinicas[0].funcionarios[1].profissao = 1;
@@ -53,7 +57,7 @@ void atribuirValoresTeste(Rede *rede){
 
         #pragma region Funcionario3
         strcpy(rede->clinicas[0].funcionarios[2].nome, "Maria");
-        rede->clinicas[0].funcionarios[2].idade = 3;
+        rede->clinicas[0].funcionarios[2].id = 3;
         rede->clinicas[0].funcionarios[2].idade = 35;
         rede->clinicas[0].funcionarios[2].vencimento = 3500.50;
         rede->clinicas[0].funcionarios[2].profissao = 2;
@@ -67,9 +71,80 @@ void atribuirValoresTeste(Rede *rede){
 
     #pragma region Clinica2
 
+        #pragma region Funcionario1
+
+        strcpy(rede->clinicas[1].funcionarios[0].nome, "Diogo");
+        rede->clinicas[1].funcionarios[0].id = 1;
+        rede->clinicas[1].funcionarios[0].idade = 25;
+        rede->clinicas[1].funcionarios[0].vencimento = 2562.50;
+        rede->clinicas[1].funcionarios[0].profissao = 2;
+        rede->clinicas[1].funcionarios[0].genero = 'm';
+        rede->clinicas[1].funcionarios[0].nCompromissos = 2;
+        strcpy(rede->clinicas[1].funcionarios[0].calendario[0].nome, "S.Olivia");
+        rede->clinicas[1].funcionarios[0].calendario[0].sns = 458721365;
+        strcpy(rede->clinicas[1].funcionarios[0].calendario[0].dataTeste, "17/12/2021");
+        strcpy(rede->clinicas[1].funcionarios[0].calendario[1].nome, "S.Ruca");
+        rede->clinicas[1].funcionarios[0].calendario[1].sns = 485462153;
+        strcpy(rede->clinicas[1].funcionarios[0].calendario[1].dataTeste, "18/12/2021");
+
+        #pragma endregion
+
+        #pragma region Funcionario2
+        strcpy(rede->clinicas[1].funcionarios[1].nome, "Pedro");
+        rede->clinicas[1].funcionarios[1].id = 1;
+        rede->clinicas[1].funcionarios[1].idade = 25;
+        rede->clinicas[1].funcionarios[1].vencimento = 1550.50;
+        rede->clinicas[1].funcionarios[1].profissao = 3;
+        rede->clinicas[1].funcionarios[1].genero = 'm';
+        #pragma endregion
+
+        #pragma region Funcionario3
+        strcpy(rede->clinicas[1].funcionarios[2].nome, "Pedro");
+        rede->clinicas[1].funcionarios[2].id = 1;
+        rede->clinicas[1].funcionarios[2].idade = 25;
+        rede->clinicas[1].funcionarios[2].vencimento = 1550.50;
+        rede->clinicas[1].funcionarios[2].profissao = 3;
+        rede->clinicas[1].funcionarios[2].genero = 'm';
+        #pragma endregion
+
     #pragma endregion
 
     #pragma region Clinica3
+        #pragma region Funcionario1
+
+        strcpy(rede->clinicas[2].funcionarios[0].nome, "Diogo");
+        rede->clinicas[2].funcionarios[0].id = 1;
+        rede->clinicas[2].funcionarios[0].idade = 25;
+        rede->clinicas[2].funcionarios[0].vencimento = 44000.50;
+        rede->clinicas[2].funcionarios[0].profissao = 2;
+        rede->clinicas[2].funcionarios[0].genero = 'm';
+        rede->clinicas[2].funcionarios[0].nCompromissos = 2;
+        strcpy(rede->clinicas[2].funcionarios[0].calendario[0].nome, "S.Olivia");
+        rede->clinicas[2].funcionarios[0].calendario[0].sns = 458721365;
+        strcpy(rede->clinicas[2].funcionarios[0].calendario[0].dataTeste, "17/12/2021");
+        strcpy(rede->clinicas[2].funcionarios[0].calendario[1].nome, "S.Ruca");
+        rede->clinicas[2].funcionarios[0].calendario[1].sns = 485462153;
+        strcpy(rede->clinicas[2].funcionarios[0].calendario[1].dataTeste, "18/12/2021");
+
+        #pragma endregion
+
+        #pragma region Funcionario2
+        strcpy(rede->clinicas[2].funcionarios[1].nome, "ZEzocas");
+        rede->clinicas[2].funcionarios[1].id = 2;
+        rede->clinicas[2].funcionarios[1].idade = 40;
+        rede->clinicas[2].funcionarios[1].vencimento = 468.50;
+        rede->clinicas[2].funcionarios[1].profissao = 3;
+        rede->clinicas[2].funcionarios[1].genero = 'm';
+        #pragma endregion
+
+        #pragma region Funcionario3
+        strcpy(rede->clinicas[2].funcionarios[2].nome, "Rikzinho");
+        rede->clinicas[2].funcionarios[2].id = 3;
+        rede->clinicas[2].funcionarios[2].idade = 32;
+        rede->clinicas[2].funcionarios[2].vencimento = 999.50;
+        rede->clinicas[2].funcionarios[2].profissao = 3;
+        rede->clinicas[2].funcionarios[2].genero = 'm';
+        #pragma endregion
 
     #pragma endregion
 }
@@ -425,6 +500,15 @@ void verFichaFuncionario(Clinica clinica, Rede *rede){
 
     apresentacaoTitulo();
 
+    if (clinica.nFuncionarios == 0)
+    {
+        printf("\n\nNENHUM FUNCIONARIO ADICIONADO AINDA!\nPressione Enter para continuar");
+        fflush(stdin);
+        getchar();
+        menuClinica(clinica, rede);
+    }
+    
+
     printf("\nInsira -1 para retroceder\nEscolha um profissional:\n");
 
     for (int i = 0; i < clinica.nFuncionarios; i++)
@@ -503,18 +587,6 @@ void resumoIdadesVencimentos(Rede *rede){
     {
         somaTotalIdades = 0;
         somaTotalProfissionais = 0;
-
-        for (int j = 0; j < rede->clinicas[i].nFuncionarios; j++)
-        {
-            somaTotalProfissionais++;
-            somaTotalIdades = somaTotalIdades + rede->clinicas[i].funcionarios[j].idade;
-        }
-        
-        printf("Clinica %s:\n - Quantidade de funcionarios na clinica %s: %d\n - Media de idades de funcionarios na clinica %s: %.1f\n\n", rede->clinicas[i].nomeClinica, rede->clinicas[i].nomeClinica, somaTotalProfissionais, rede->clinicas[i].nomeClinica, ((float)somaTotalIdades/somaTotalProfissionais));
-    }
-    
-    for (int i = 0; i < rede->nClinicas; i++)
-    {
         somaTotalVencimentosEnfFem = 0.0F;
         somaTotalVencimentosEnfMasc = 0.0F;
         somaTotalVencimentosMedMasc = 0.0F;
@@ -539,8 +611,12 @@ void resumoIdadesVencimentos(Rede *rede){
                 if (rede->clinicas[i].funcionarios[j].genero == 'm') somaTotalVencimentosEnfMasc = somaTotalVencimentosEnfMasc + rede->clinicas[i].funcionarios[j].vencimento;
                 else somaTotalVencimentosEnfFem = somaTotalVencimentosEnfFem + rede->clinicas[i].funcionarios[j].vencimento;
             }
+
+            somaTotalProfissionais++;
+            somaTotalIdades = somaTotalIdades + rede->clinicas[i].funcionarios[j].idade;
         }
 
+        printf("Clinica %s:\n - Quantidade de funcionarios na clinica %s: %d\n - Media de idades de funcionarios na clinica %s: %.1f\n\n", rede->clinicas[i].nomeClinica, rede->clinicas[i].nomeClinica, somaTotalProfissionais, rede->clinicas[i].nomeClinica, ((float)somaTotalIdades/somaTotalProfissionais));
         printf("           \n - Medicos:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n", "", somaTotalVencimentosMedMasc, "", somaTotalVencimentosMedFem);
         printf("           \n - Enfermeiros:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n", "", somaTotalVencimentosEnfMasc, "", somaTotalVencimentosEnfFem);
         printf("           \n - Auxiliar:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n\n", "", somaTotalVencimentosAuxMasc, "", somaTotalVencimentosAuxFem);
@@ -555,13 +631,13 @@ void listarMedicosApenas(Rede *rede){
     printf("\nVENCIMENTO DE TODOS OS MEDICOS DA REDE:\n");
     for (int i = 0; i < rede->nClinicas; i++)
     {
-        printf("\nCLINICA %s:\n", rede->clinicas[i].nomeClinica);
+        printf("\nCLINICA %s:\n\n", rede->clinicas[i].nomeClinica);
         for (int j = 0; j < rede->clinicas[i].nFuncionarios; j++)
         {
             if (rede->clinicas[i].funcionarios[j].profissao == 1)
             {
-                printf("NOME: %s\n", rede->clinicas[i].funcionarios[j].nome);
-                printf("VENCIMENTO: %.2f\n", rede->clinicas[i].funcionarios[j].vencimento);
+                printf("    -> NOME: %s\n", rede->clinicas[i].funcionarios[j].nome);
+                printf("    -> VENCIMENTO: %.2f\n", rede->clinicas[i].funcionarios[j].vencimento);
                 somatorio += rede->clinicas[i].funcionarios[j].vencimento;
             }
         }
