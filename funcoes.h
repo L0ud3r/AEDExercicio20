@@ -20,7 +20,7 @@ typedef struct{
 typedef struct{
     char nomeClinica[TAMNOMECLINICA];
     Funcionario funcionarios[TAMFUNCIONARIOS];
-    int nFuncionarios, id;
+    int nFuncionarios, id, nMedicos, nEnfermeiros, nAuxiliares;
 } Clinica;
 
 typedef struct{
@@ -32,8 +32,8 @@ void resumoIdadesVencimentos(Rede *rede);
 void listarMedicosApenas(Rede *rede);
 void mostrarExercicios(Rede *rede);
 void mostrarListaClinicas(Rede *rede);
-void contaAgenda(Rede *rede, int opcao);
-void apresentaAgenda(Funcionario funcionario);
+void contaAgenda(Rede *rede, int indice);
+void apresentaAgenda(Rede *rede);
 void menu(Rede *rede);
 void menuAjuda(Rede *rede);
 void criarFichaClinica(Rede *rede);
@@ -42,5 +42,6 @@ void menuClinica(Clinica clinica, Rede *rede);
 void criarFichaFuncionario(Clinica clinica, Rede *rede);
 void marcarConsulta(Clinica clinica, Rede *rede);
 void verFichaFuncionario(Clinica clinica, Rede *rede);
+int escolhaClinica(Rede *rede);
 
 void atribuirValoresTeste(Rede *rede);

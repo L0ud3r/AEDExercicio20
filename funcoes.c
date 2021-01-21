@@ -8,19 +8,25 @@
 
 void atribuirValoresTeste(Rede *rede){
     //Numero clinicas
-    rede->nClinicas = 3;
+    rede->nClinicas = 4;
 
     //Nome e numero funcionarios em cada clinica 
     strcpy(rede->clinicas[0].nomeClinica, "S.Joao");
     strcpy(rede->clinicas[1].nomeClinica, "S.Jorge");
     strcpy(rede->clinicas[2].nomeClinica, "S.Maria");
+    //Clinica DUMMY
+    strcpy(rede->clinicas[3].nomeClinica, "S.DUMMY");
 
     rede->clinicas[0].nFuncionarios = 3;
     rede->clinicas[1].nFuncionarios = 3;
     rede->clinicas[2].nFuncionarios = 3;
+    //Clinica DUMMY
+    rede->clinicas[3].nFuncionarios = 0;
     rede->clinicas[0].id = 1;
     rede->clinicas[1].id = 2;
     rede->clinicas[2].id = 3;
+    //Clinica DUMMY
+    rede->clinicas[3].id = 4;
 
     #pragma region Clinica1
 
@@ -91,7 +97,7 @@ void atribuirValoresTeste(Rede *rede){
 
         #pragma region Funcionario2
         strcpy(rede->clinicas[1].funcionarios[1].nome, "Pedro");
-        rede->clinicas[1].funcionarios[1].id = 1;
+        rede->clinicas[1].funcionarios[1].id = 2;
         rede->clinicas[1].funcionarios[1].idade = 25;
         rede->clinicas[1].funcionarios[1].vencimento = 1550.50;
         rede->clinicas[1].funcionarios[1].profissao = 3;
@@ -99,8 +105,8 @@ void atribuirValoresTeste(Rede *rede){
         #pragma endregion
 
         #pragma region Funcionario3
-        strcpy(rede->clinicas[1].funcionarios[2].nome, "Pedro");
-        rede->clinicas[1].funcionarios[2].id = 1;
+        strcpy(rede->clinicas[1].funcionarios[2].nome, "Jacare");
+        rede->clinicas[1].funcionarios[2].id = 3;
         rede->clinicas[1].funcionarios[2].idade = 25;
         rede->clinicas[1].funcionarios[2].vencimento = 1550.50;
         rede->clinicas[1].funcionarios[2].profissao = 3;
@@ -225,10 +231,10 @@ void mostrarExercicios(Rede *rede){
         listarMedicosApenas(rede);
         break;
     case 3:
-        
+        contaAgenda(rede, escolhaClinica(rede));
         break;
     case 4:
-        
+        apresentaAgenda(rede);
         break;
     case -1:
         menu(rede);
@@ -271,7 +277,7 @@ void criarFichaClinica(Rede *rede){
 
     if (strcasecmp(nomeAux, "cancelar") == 0)
     {
-        return;
+        menu(rede);
     }
     //rede->clinicas[teste].nomeClinica;
     strcpy(rede->clinicas[teste].nomeClinica, nomeAux);
@@ -306,7 +312,7 @@ void mostrarListaClinicas(Rede *rede){
     
     if (opcao == -1)
     {
-        return;
+        menu(rede);
     }
     
 
@@ -570,10 +576,43 @@ void verFichaFuncionario(Clinica clinica, Rede *rede){
     menuClinica(clinica, rede);
 }
 
-
 /************************FAZER FUNCOES DE SELECAO DE MEDICOS/CLINICAS PARA OS EXERCICIOS*******************************/
 
-                    /************************FIXAR OS EXERCICIOS************************/
+int escolhaClinica(Rede *rede){
+    int opcao;
+
+    apresentacaoTitulo();
+
+    if(rede->nClinicas <= 0){
+        printf("\n\nNENHUMA CLINICA ADICIONADO AINDA!\nPressione Enter para continuar");
+        fflush(stdin);
+        getchar();
+        mostrarExercicios(rede);
+    }
+
+    printf("\nInsira -1 para retroceder\nEscolha uma clinica:\n\n");
+
+    for (int i = 0; i < rede->nClinicas; i++)
+    {
+        printf("[%d] - %s\n", rede->clinicas[i].id, rede->clinicas[i].nomeClinica);
+    }
+
+    printf("Clinica -> ");
+    scanf("%d", &opcao);
+
+    while (opcao < -1 && opcao > rede->nClinicas + 1)
+    {
+        printf("Insira uma clinica valida-> ");
+        scanf("%d", &opcao);
+    }
+    
+    if (opcao == -1)
+    {
+        menu(rede);
+    }
+    
+    return (opcao - 1);
+}
 
 //Exercicio1 CONCLUIDO
 void resumoIdadesVencimentos(Rede *rede){
@@ -621,6 +660,11 @@ void resumoIdadesVencimentos(Rede *rede){
         printf("           \n - Enfermeiros:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n", "", somaTotalVencimentosEnfMasc, "", somaTotalVencimentosEnfFem);
         printf("           \n - Auxiliar:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n\n", "", somaTotalVencimentosAuxMasc, "", somaTotalVencimentosAuxFem);
     }
+
+    printf("\nPressione ENTER para continuar");
+    fflush(stdin);
+    getchar();
+    mostrarExercicios(rede);
 }
 
 //Exercicio2 CONCLUIDO
@@ -643,31 +687,97 @@ void listarMedicosApenas(Rede *rede){
         }
     }
     printf("\nTOTAL DE TODOS OS VENCIMENTOS: %.2f", somatorio);
+
+    printf("\nPressione ENTER para continuar");
+    fflush(stdin);
+    getchar();
+    mostrarExercicios(rede);
 }
 
 //Exercicio3 CONCLUIDO
-void contaAgenda(Rede *rede, int opcao){
+void contaAgenda(Rede *rede, int indice){
+
     int contador;
 
-    for (int i = 0; i < rede->clinicas[opcao].nFuncionarios; i++)
+    apresentacaoTitulo();
+    
+    if (rede->clinicas[indice].nFuncionarios <= 0)
+    {
+        printf("\n\nNENHUM FUNCIONARIO ADICIONADO AINDA!\nPressione Enter para continuar");
+        fflush(stdin);
+        getchar();
+        indice = escolhaClinica(rede);
+        apresentacaoTitulo();
+    }
+    
+    for (int i = 0; i < rede->clinicas[indice].nFuncionarios; i++)
     {
         contador = 0;
-        if (rede->clinicas[opcao].funcionarios[i].profissao == 2)
+        if (rede->clinicas[indice].funcionarios[i].profissao == 2)
         {
-            contador += rede->clinicas[opcao].funcionarios[i].nCompromissos;
-            printf("Enfermeiro/a %s tem %d compromisso/s\n", rede->clinicas[opcao].funcionarios[i].nome, contador);
+            contador += rede->clinicas[indice].funcionarios[i].nCompromissos;
+            printf("Enfermeiro/a %s tem %d compromisso/s\n", rede->clinicas[indice].funcionarios[i].nome, contador);
         }
     }
+
+    printf("\nPrima ENTER para continuar");
+    fflush(stdin);
+    getchar();
+    mostrarExercicios(rede);
 }
 
 //Exercicio4 CONCLUIDO
-void apresentaAgenda(Funcionario funcionario){
+void apresentaAgenda(Rede *rede){
 
-    printf("Agenda do profissional de saude %s:\n", funcionario.nome);
-    for (int i = 0; i < funcionario.nCompromissos; i++)
+    int indiceClinica = escolhaClinica(rede) , indiceFuncionario, opcao, contadorMedEnf = 0;
+    
+    while (rede->clinicas[indiceClinica].nFuncionarios <= 0)
     {
-        printf("  -DIA %s\n", funcionario.calendario[i].dataTeste);
-        printf("     -> NOME PACIENTE: %s\n", funcionario.calendario[i].nome);
-        printf("     -> SNS DO PACIENTE: %d\n\n", funcionario.calendario[i].sns);
+        printf("\n\nNENHUM FUNCIONARIO ADICIONADO AINDA!\nPressione Enter para continuar");
+        fflush(stdin);
+        getchar();
+        indiceClinica = escolhaClinica(rede);
     }
+
+    printf("\nInsira -1 para retroceder\nEscolha um profissional:\n");
+
+    for (int i = 0; i < rede->clinicas[indiceClinica].nFuncionarios; i++)
+    {   
+        if (rede->clinicas[indiceClinica].funcionarios[i].profissao != 3)
+        {
+            printf("[%d] - %s ", rede->clinicas[indiceClinica].funcionarios[i].id, rede->clinicas[indiceClinica].funcionarios[i].nome);
+            if (rede->clinicas[indiceClinica].funcionarios[i].profissao == 1) printf("(medico/a)\n");
+            else if (rede->clinicas[indiceClinica].funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+            contadorMedEnf++;
+        }
+    }
+
+    if (contadorMedEnf == 0){
+        printf("\nAinda nao foi introduzido nenhum medico ou enfermeiro nesta clinica!");
+        fflush(stdin);
+        getchar();
+        mostrarExercicios(rede);
+    }
+
+
+    printf("Profissional -> ");
+    scanf("%d", &opcao);
+
+    for (int i = 0; i < rede->clinicas[indiceClinica].nFuncionarios; i++)
+        {
+            if (opcao == rede->clinicas[indiceClinica].funcionarios[i].id) indiceFuncionario = i;
+        }
+
+    printf("Agenda do profissional de saude %s:\n", rede->clinicas[indiceClinica].funcionarios[indiceFuncionario].nome);
+    for (int i = 0; i < rede->clinicas[indiceClinica].funcionarios[indiceFuncionario].nCompromissos; i++)
+    {
+        printf("  -DIA %s\n", rede->clinicas[indiceClinica].funcionarios[indiceFuncionario].calendario[i].dataTeste);
+        printf("     -> NOME PACIENTE: %s\n", rede->clinicas[indiceClinica].funcionarios[indiceFuncionario].calendario[i].nome);
+        printf("     -> SNS DO PACIENTE: %d\n\n", rede->clinicas[indiceClinica].funcionarios[indiceFuncionario].calendario[i].sns);
+    }
+
+    printf("\nPressione ENTER para continuar");
+    fflush(stdin);
+    getchar();
+    mostrarExercicios(rede);
 }
