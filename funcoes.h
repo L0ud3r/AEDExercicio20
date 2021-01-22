@@ -39,9 +39,9 @@ void menuAjuda(Rede *rede);
 void criarFichaClinica(Rede *rede);
 void apresentacaoTitulo();
 void menuClinica(Clinica clinica, Rede *rede);
-void criarFichaFuncionario(Clinica clinica, Rede *rede);
-void marcarConsulta(Clinica clinica, Rede *rede);
-void verFichaFuncionario(Clinica clinica, Rede *rede);
+void criarFichaFuncionario(Clinica *clinica, Rede *rede);
+void marcarConsulta(Clinica *clinica, Rede *rede);
+void verFichaFuncionario(Clinica *clinica, Rede *rede);
 int escolhaClinica(Rede *rede);
 
 void atribuirValoresTeste(Rede *rede);
