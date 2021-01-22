@@ -1,5 +1,7 @@
-
+PROGRAMA QUASE COMPLETO!!!!
+Conclusao em menus
+Testes feitos
 
 
 POR FAZER:
-VER ERRO LINHA 311
+Ver detalhes de informaçao zerada ou em falta (ultimos testes)

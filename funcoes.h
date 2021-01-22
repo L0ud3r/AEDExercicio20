@@ -38,7 +38,7 @@ void menu(Rede *rede);
 void menuAjuda(Rede *rede);
 void criarFichaClinica(Rede *rede);
 void apresentacaoTitulo();
-void menuClinica(Clinica clinica, Rede *rede);
+void menuClinica(Clinica *clinica, Rede *rede);
 void criarFichaFuncionario(Clinica *clinica, Rede *rede);
 void marcarConsulta(Clinica *clinica, Rede *rede);
 void verFichaFuncionario(Clinica *clinica, Rede *rede);

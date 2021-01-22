@@ -314,6 +314,14 @@ void mostrarListaClinicas(Rede *rede){
 
     apresentacaoTitulo();
 
+    if (rede->nClinicas == 0){
+        printf("AINDA NAO FOI ADICIONADA NENHUMA CLINICA!\n\n");
+        printf("Pressione Enter para continuar");
+        fflush(stdin);
+        getchar();
+        menu(rede);
+    }
+
     printf("\nInsira -1 para retroceder\nEscolha uma clinica:\n\n");
 
     for (int i = 0; i < rede->nClinicas; i++)
@@ -324,19 +332,18 @@ void mostrarListaClinicas(Rede *rede){
     printf("Clinica -> ");
     scanf("%d", &opcao);
 
-    while (opcao < -1 && opcao > rede->nClinicas + 1)
-    {
-        printf("Insira uma clinica valida-> ");
-        scanf("%d", &opcao);
-    }
-    
     if (opcao == -1)
     {
         menu(rede);
     }
-    
 
-    menuClinica(rede->clinicas[opcao - 1], rede);    
+    while (opcao < 1 || opcao > rede->nClinicas)
+    {
+        printf("Insira uma clinica valida-> ");
+        scanf("%d", &opcao);
+    }
+
+    menuClinica(&rede->clinicas[opcao - 1], rede);    
 }
 
 //CONCLUIDO
@@ -360,13 +367,13 @@ void menuClinica(Clinica *clinica, Rede *rede){
     switch (opcao)
     {
     case 1:
-        criarFichaFuncionario(&clinica, rede);
+        criarFichaFuncionario(clinica, rede);
         break;
     case 2:
-        marcarConsulta(&clinica, rede);
+        marcarConsulta(clinica, rede);
         break;
     case 3:
-        verFichaFuncionario(&clinica, rede);
+        verFichaFuncionario(clinica, rede);
         break;
     case -1:
         menu(rede);
@@ -455,6 +462,13 @@ void marcarConsulta(Clinica *clinica, Rede *rede){
 
     apresentacaoTitulo();
 
+    if (clinica->nMedicos <= 0 && clinica->nEnfermeiros <= 0){
+        printf("Ainda nao foi adicionado nenhum medico ou enfermeiro a esta clinica!\n\nPressione ENTER para continuar");
+        fflush(stdin);
+        getchar();
+        menuClinica(clinica, rede);
+    }
+
     printf("\nInsira -1 para retroceder\nEscolha um profissional:\n");
 
     for (int i = 0; i < clinica->nFuncionarios; i++)
@@ -530,7 +544,7 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
 
     if (clinica->nFuncionarios == 0)
     {
-        printf("\n\nNENHUM FUNCIONARIO ADICIONADO AINDA!\nPressione Enter para continuar");
+        printf("\n\nNenhum funcionario adicionado ainda!\nPressione Enter para continuar");
         fflush(stdin);
         getchar();
         menuClinica(clinica, rede);
@@ -581,6 +595,11 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
         printf("VENCIMENTO: %.2f\n", clinica->funcionarios[indice].vencimento);
         printf("NUMERO DE CONSULTAS MARCADAS: %d\n\n", clinica->funcionarios[indice].nCompromissos);
 
+        printf("\n\nPressione ENTER para continuar");
+        fflush(stdin);
+        getchar();
+        apresentacaoTitulo();
+
         printf("\nInsira -1 para retroceder\nEscolha um profissional:\n");
 
         for (int i = 0; i < clinica->nFuncionarios; i++)
@@ -604,8 +623,8 @@ int escolhaClinica(Rede *rede){
 
     apresentacaoTitulo();
 
-    if(rede->nClinicas <= 0){
-        printf("\n\nNENHUMA CLINICA ADICIONADO AINDA!\nPressione Enter para continuar");
+    if (rede->nClinicas <= 0){
+        printf("Aplicacao nao tem nenhuma clinica adicionada ainda!\n\nPressione Enter para continuar");
         fflush(stdin);
         getchar();
         mostrarExercicios(rede);
@@ -621,7 +640,7 @@ int escolhaClinica(Rede *rede){
     printf("Clinica -> ");
     scanf("%d", &opcao);
 
-    while (opcao < -1 && opcao > rede->nClinicas + 1)
+    while (opcao < 1 || opcao > rede->nClinicas + 1)
     {
         printf("Insira uma clinica valida-> ");
         scanf("%d", &opcao);
@@ -639,6 +658,14 @@ int escolhaClinica(Rede *rede){
 void resumoIdadesVencimentos(Rede *rede){
 
     apresentacaoTitulo();
+
+    if (rede->nClinicas == 0){
+        printf("Aplicacao nao tem nenhuma clinica adicionada ainda!\n\n");
+        printf("Pressione ENTER para continuar");
+        fflush(stdin);
+        getchar();
+        mostrarExercicios(rede);
+    }
 
     int somaTotalIdades;
     float somaTotalVencimentosEnfMasc, somaTotalVencimentosEnfFem, somaTotalVencimentosMedMasc, somaTotalVencimentosMedFem, somaTotalVencimentosAuxMasc, somaTotalVencimentosAuxFem;
@@ -674,10 +701,17 @@ void resumoIdadesVencimentos(Rede *rede){
             somaTotalIdades = somaTotalIdades + rede->clinicas[i].funcionarios[j].idade;
         }
 
-        printf("Clinica %s:\n - Quantidade de funcionarios na clinica %s: %d\n - Media de idades de funcionarios na clinica %s: %.1f\n\n", rede->clinicas[i].nomeClinica, rede->clinicas[i].nomeClinica, rede->clinicas[i].nFuncionarios, rede->clinicas[i].nomeClinica, ((float)somaTotalIdades/rede->clinicas[i].nFuncionarios));
-        printf("           \n - Medicos:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n", "", somaTotalVencimentosMedMasc, "", somaTotalVencimentosMedFem);
-        printf("           \n - Enfermeiros:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n", "", somaTotalVencimentosEnfMasc, "", somaTotalVencimentosEnfFem);
-        printf("           \n - Auxiliar:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n\n", "", somaTotalVencimentosAuxMasc, "", somaTotalVencimentosAuxFem);
+        if (rede->clinicas[i].nFuncionarios == 0)
+        {
+            printf("Clinica %s nao tem funcionarios ainda adicionados!\n\n");
+        }
+        else
+        {
+            printf("Clinica %s:\n - Quantidade de funcionarios na clinica %s: %d\n - Media de idades de funcionarios na clinica %s: %.1f\n\n", rede->clinicas[i].nomeClinica, rede->clinicas[i].nomeClinica, rede->clinicas[i].nFuncionarios, rede->clinicas[i].nomeClinica, ((float)somaTotalIdades/rede->clinicas[i].nFuncionarios));
+            printf("           \n - Medicos:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n", "", somaTotalVencimentosMedMasc, "", somaTotalVencimentosMedFem);
+            printf("           \n - Enfermeiros:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n", "", somaTotalVencimentosEnfMasc, "", somaTotalVencimentosEnfFem);
+            printf("           \n - Auxiliar:\n%5s- Homens: %.2f\n%5s- Mulheres: %.2f\n\n", "", somaTotalVencimentosAuxMasc, "", somaTotalVencimentosAuxFem);
+        }
     }
 
     printf("\nPressione ENTER para continuar");
@@ -688,6 +722,16 @@ void resumoIdadesVencimentos(Rede *rede){
 
 //Exercicio2 CONCLUIDO
 void listarMedicosApenas(Rede *rede){
+
+    apresentacaoTitulo();
+
+    if (rede->nClinicas == 0){
+        printf("Aplicacao nao tem nenhuma clinica adicionada ainda!\n\n");
+        printf("Pressione ENTER para continuar");
+        fflush(stdin);
+        getchar();
+        mostrarExercicios(rede);
+    }
 
     float somatorio = 0.0F;
     
@@ -724,6 +768,14 @@ void contaAgenda(Rede *rede, int indice){
     int contador;
 
     apresentacaoTitulo();
+
+    if (rede->nClinicas == 0){
+        printf("Aplicacao nao tem nenhuma clinica adicionada ainda!\n\n");
+        printf("Pressione ENTER para continuar");
+        fflush(stdin);
+        getchar();
+        mostrarExercicios(rede);
+    }
     
     if (rede->clinicas[indice].nEnfermeiros <= 0)
     {
@@ -750,8 +802,17 @@ void contaAgenda(Rede *rede, int indice){
     mostrarExercicios(rede);
 }
 
-//Exercicio4 CONCLUIDO
+//Exercicio4 CONCLUIDO NENHUMA CLINICA ADICIONADO AINDA!
 void apresentaAgenda(Rede *rede){
+
+    if (rede->nClinicas == 0){
+        apresentacaoTitulo();
+        printf("Aplicacao nao tem nenhuma clinica adicionada ainda!\n\n");
+        printf("Pressione ENTER para continuar");
+        fflush(stdin);
+        getchar();
+        mostrarExercicios(rede);
+    }
 
     int indiceClinica = escolhaClinica(rede) , indiceFuncionario, opcao, indiceLimite = -1;
     
