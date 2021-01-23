@@ -23,8 +23,7 @@ typedef struct{
 typedef struct{
     char nomeClinica[TAMNOMECLINICA];
     Funcionario funcionarios[TAMFUNCIONARIOS];
-    int nFuncionarios, id, nMedicos, nEnfermeiros, nAuxiliares;
-    bool valido;
+    int nFuncionarios, id, nMedicos, nEnfermeiros, nAuxiliares, indiceMaximo;
 } Clinica;
 
 typedef struct{
@@ -47,5 +46,6 @@ void criarFichaFuncionario(Clinica *clinica, Rede *rede);
 void marcarConsulta(Clinica *clinica, Rede *rede);
 void verFichaFuncionario(Clinica *clinica, Rede *rede);
 int escolhaClinica(Rede *rede);
+void apagarFuncionario(Clinica *clinica);
 
 void atribuirValoresTeste(Rede *rede);

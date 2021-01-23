@@ -21,7 +21,7 @@ int main(){
     Rede *rede;
     rede = (Rede*)malloc(sizeof(Rede));
     rede->nClinicas = 0;
-    //atribuirValoresTeste(rede);   
+    atribuirValoresTeste(rede);   
     menu(rede);
     free(rede);
 }

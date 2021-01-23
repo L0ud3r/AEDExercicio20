@@ -18,7 +18,7 @@ void atribuirValoresTeste(Rede *rede){
 
     rede->clinicas[0].nFuncionarios = 3;
     rede->clinicas[1].nFuncionarios = 3;
-    rede->clinicas[2].nFuncionarios = 3;
+    rede->clinicas[2].nFuncionarios = 2;
     //Clinica DUMMY
     rede->clinicas[3].nFuncionarios = 1;
     rede->clinicas[0].id = 1;
@@ -59,6 +59,7 @@ void atribuirValoresTeste(Rede *rede){
         strcpy(rede->clinicas[0].funcionarios[0].calendario[1].nome, "S.Maria");
         rede->clinicas[0].funcionarios[0].calendario[1].sns = 778546213;
         strcpy(rede->clinicas[0].funcionarios[0].calendario[1].dataTeste, "15/12/2021");
+        rede->clinicas[0].funcionarios[0].valido = true;
         
         #pragma endregion
         
@@ -73,6 +74,8 @@ void atribuirValoresTeste(Rede *rede){
         strcpy(rede->clinicas[0].funcionarios[1].calendario[0].nome, "S.Jose");
         rede->clinicas[0].funcionarios[1].calendario[0].sns = 789456132;
         strcpy(rede->clinicas[0].funcionarios[1].calendario[0].dataTeste, "16/03/2021");
+        rede->clinicas[0].funcionarios[1].valido = true;
+
         #pragma endregion
 
         #pragma region Funcionario3
@@ -86,6 +89,7 @@ void atribuirValoresTeste(Rede *rede){
         strcpy(rede->clinicas[0].funcionarios[2].calendario[0].nome, "S.Manel");
         rede->clinicas[0].funcionarios[2].calendario[0].sns = 784568722;
         strcpy(rede->clinicas[0].funcionarios[2].calendario[0].dataTeste, "16/03/2021");
+        rede->clinicas[0].funcionarios[2].valido = false;
         #pragma endregion
     #pragma endregion
 
@@ -106,6 +110,7 @@ void atribuirValoresTeste(Rede *rede){
         strcpy(rede->clinicas[1].funcionarios[0].calendario[1].nome, "S.Ruca");
         rede->clinicas[1].funcionarios[0].calendario[1].sns = 485462153;
         strcpy(rede->clinicas[1].funcionarios[0].calendario[1].dataTeste, "18/12/2021");
+        rede->clinicas[1].funcionarios[0].valido = false;
 
         #pragma endregion
 
@@ -116,6 +121,7 @@ void atribuirValoresTeste(Rede *rede){
         rede->clinicas[1].funcionarios[1].vencimento = 1550.50;
         rede->clinicas[1].funcionarios[1].profissao = 3;
         rede->clinicas[1].funcionarios[1].genero = 'm';
+        rede->clinicas[1].funcionarios[1].valido = true;
         #pragma endregion
 
         #pragma region Funcionario3
@@ -125,6 +131,7 @@ void atribuirValoresTeste(Rede *rede){
         rede->clinicas[1].funcionarios[2].vencimento = 1550.50;
         rede->clinicas[1].funcionarios[2].profissao = 3;
         rede->clinicas[1].funcionarios[2].genero = 'm';
+        rede->clinicas[1].funcionarios[2].valido = true;
         #pragma endregion
 
     #pragma endregion
@@ -145,6 +152,7 @@ void atribuirValoresTeste(Rede *rede){
         strcpy(rede->clinicas[2].funcionarios[0].calendario[1].nome, "S.Ruca");
         rede->clinicas[2].funcionarios[0].calendario[1].sns = 485462153;
         strcpy(rede->clinicas[2].funcionarios[0].calendario[1].dataTeste, "18/12/2021");
+        rede->clinicas[2].funcionarios[0].valido = true;
 
         #pragma endregion
 
@@ -155,6 +163,8 @@ void atribuirValoresTeste(Rede *rede){
         rede->clinicas[2].funcionarios[1].vencimento = 468.50;
         rede->clinicas[2].funcionarios[1].profissao = 3;
         rede->clinicas[2].funcionarios[1].genero = 'm';
+        rede->clinicas[2].funcionarios[1].valido = false;
+
         #pragma endregion
 
         #pragma region Funcionario3
@@ -164,6 +174,7 @@ void atribuirValoresTeste(Rede *rede){
         rede->clinicas[2].funcionarios[2].vencimento = 999.50;
         rede->clinicas[2].funcionarios[2].profissao = 3;
         rede->clinicas[2].funcionarios[2].genero = 'm';
+        rede->clinicas[2].funcionarios[2].valido = true;
         #pragma endregion
 
     #pragma endregion
@@ -174,6 +185,7 @@ void atribuirValoresTeste(Rede *rede){
     rede->clinicas[3].funcionarios[0].vencimento = 999.50;
     rede->clinicas[3].funcionarios[0].profissao = 3;
     rede->clinicas[3].funcionarios[0].genero = 'm';
+    rede->clinicas[2].funcionarios[2].valido = false;
 
 }
 
@@ -240,8 +252,6 @@ void mostrarExercicios(Rede *rede){
         case 4:
             apresentaAgenda(rede);
             break;
-        case -1:
-            break;
         default:
             break;
         }
@@ -290,7 +300,7 @@ void criarFichaClinica(Rede *rede){
     rede->clinicas[rede->nClinicas].nMedicos = 0;
     rede->clinicas[rede->nClinicas].nEnfermeiros = 0;
     rede->clinicas[rede->nClinicas].nAuxiliares = 0;
-    rede->clinicas[rede->nClinicas].valido = true;
+    rede->clinicas[rede->nClinicas].indiceMaximo = 0;
 
     rede->nClinicas++;
 }
@@ -339,13 +349,12 @@ void menuClinica(Clinica *clinica, Rede *rede){
     
     do
     {
-    apresentacaoTitulo();
+        apresentacaoTitulo();
 
-    printf("\n[1] ADICIONAR FUNCIONARIO   [2] MARCAR CONSULTA   [3] VER FICHA FUNCIONARIO  [-1] RETROCEDER");
-    printf("\n\nInsira a sua opcao: ");
-    scanf("%d", &opcao);
-    fflush(stdin);
-
+        printf("\n[1] ADICIONAR FUNCIONARIO   [2] MARCAR CONSULTA   [3] VER FICHA FUNCIONARIO\n[4] APAGAR FUNCIONARIO  [-1] RETROCEDER");
+        printf("\n\nInsira a sua opcao: ");
+        scanf("%d", &opcao);
+        fflush(stdin);
     
         switch (opcao)
         {
@@ -358,8 +367,9 @@ void menuClinica(Clinica *clinica, Rede *rede){
         case 3:
             verFichaFuncionario(clinica, rede);
             break;
-        case -1:
-            return;
+        case 4:
+            apagarFuncionario(clinica);
+            break;
         default:
             break;
         }
@@ -420,7 +430,7 @@ void criarFichaFuncionario(Clinica *clinica, Rede *rede){
 
     if(clinica->funcionarios[clinica->nFuncionarios].profissao == 1) clinica->nMedicos++;
     else if(clinica->funcionarios[clinica->nFuncionarios].profissao == 2) clinica->nEnfermeiros++;
-    if(clinica->funcionarios[clinica->nFuncionarios].profissao == 3) clinica->nAuxiliares++;
+    else if(clinica->funcionarios[clinica->nFuncionarios].profissao == 3) clinica->nAuxiliares++;
 
     printf("VENCIMENTO: ");
     scanf("%f", &clinica->funcionarios[clinica->nFuncionarios].vencimento);
@@ -432,10 +442,11 @@ void criarFichaFuncionario(Clinica *clinica, Rede *rede){
     }
     fflush(stdin);
 
-    clinica->funcionarios[clinica->nFuncionarios].id = clinica->nFuncionarios + 1;
+    clinica->funcionarios[clinica->nFuncionarios].id = clinica->indiceMaximo + 1;
     clinica->funcionarios[clinica->nFuncionarios].nCompromissos = 0;
     clinica->funcionarios[clinica->nFuncionarios].valido = true;
     clinica->nFuncionarios++;
+    clinica->indiceMaximo++;
 }
 
 //CONCLUIDO FIX
@@ -455,11 +466,14 @@ void marcarConsulta(Clinica *clinica, Rede *rede){
 
     for (int i = 0; i < clinica->nFuncionarios; i++)
     {   
-        if (clinica->funcionarios[i].profissao == 1 || clinica->funcionarios[i].profissao == 2){
-            printf("[%d] - %s ", clinica->funcionarios[i].id, clinica->funcionarios[i].nome);
-            
-            if (clinica->funcionarios[i].profissao == 1) printf("(medico/a)\n");
-            else if (clinica->funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+        if (clinica->funcionarios[i].valido == true)
+        {
+            if (clinica->funcionarios[i].profissao == 1 || clinica->funcionarios[i].profissao == 2){
+                printf("[%d] - %s ", clinica->funcionarios[i].id, clinica->funcionarios[i].nome);
+                
+                if (clinica->funcionarios[i].profissao == 1) printf("(medico/a)\n");
+                else if (clinica->funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+            }
         }
     }
     printf("Profissional -> ");
@@ -473,9 +487,11 @@ void marcarConsulta(Clinica *clinica, Rede *rede){
 
     for (int i = 0; i < clinica->nFuncionarios; i++)
     {
-        if (opcao == clinica->funcionarios[i].id)
-        {
-            indice = i;
+        if (clinica->funcionarios[i].valido == true){
+            if (opcao == clinica->funcionarios[i].id)
+            {
+                indice = i;
+            }
         }
     }
 
@@ -486,9 +502,11 @@ void marcarConsulta(Clinica *clinica, Rede *rede){
 
         for (int i = 0; i < clinica->nFuncionarios; i++)
         {
-            if (opcao == clinica->funcionarios[i].id)
-            {
-                indice = i;
+            if (clinica->funcionarios[i].valido == true){
+                if (opcao == clinica->funcionarios[i].id)
+                {
+                    indice = i;
+                }
             }
         }
     }
@@ -520,7 +538,66 @@ void marcarConsulta(Clinica *clinica, Rede *rede){
 
 //CONCLUIDO FIX
 void apagarFuncionario(Clinica *clinica){
+    int opcao, indice = -1;
+
+    apresentacaoTitulo();
+
+    if (clinica->nFuncionarios <= 0){
+        printf("Ainda nao foi adicionado nenhum funcionario a esta clinica!\n\nPressione ENTER para continuar");
+        fflush(stdin);
+        getchar();
+        return;
+    }
+
+    printf("\nInsira -1 para retroceder\nEscolha um profissional:\n");
+
+    for (int i = 0; i < clinica->nFuncionarios; i++)
+    {   
+        printf("[%d] - %s ", clinica->funcionarios[i].id, clinica->funcionarios[i].nome);
+        if (clinica->funcionarios[i].profissao == 1) printf("(medico/a)\n");
+        else if (clinica->funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+        else if (clinica->funcionarios[i].profissao == 3) printf("(auxiliar)\n");
+    }
+    printf("Profissional -> ");
+    scanf("%d", &opcao);
+
+    if (opcao == -1)
+    {
+        return;
+    }
     
+
+    for (int i = 0; i < clinica->nFuncionarios; i++)
+    {
+        if (opcao == clinica->funcionarios[i].id)
+        {
+            indice = i;
+        }
+    }
+
+    while (indice == -1)
+    {
+        printf("Profissional -> ");
+        scanf("%d", &opcao);
+
+        for (int i = 0; i < clinica->nFuncionarios; i++)
+        {
+            if (opcao == clinica->funcionarios[i].id)
+            {
+                indice = i;
+            }
+        }
+    }
+
+    clinica->funcionarios[indice].valido = false;
+
+    if (clinica->funcionarios[indice].profissao == 1) clinica->nMedicos--;
+    else if (clinica->funcionarios[indice].profissao == 2) clinica->nEnfermeiros--;
+    else if (clinica->funcionarios[indice].profissao == 3) clinica->nAuxiliares--;
+    
+    printf("\nProfissional de saude %s removido com sucesso!", clinica->funcionarios[indice].nome);
+    fflush(stdin);
+    getchar();
 }
 
 //CONCLUIDO FIX
@@ -542,10 +619,12 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
 
     for (int i = 0; i < clinica->nFuncionarios; i++)
     {   
-        printf("[%d] - %s ", clinica->funcionarios[i].id, clinica->funcionarios[i].nome);
-        if (clinica->funcionarios[i].profissao == 1) printf("(medico/a)\n");
-        else if (clinica->funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
-        else printf("(auxiliar)\n");
+        if (clinica->funcionarios[i].valido == true){
+            printf("[%d] - %s ", clinica->funcionarios[i].id, clinica->funcionarios[i].nome);
+            if (clinica->funcionarios[i].profissao == 1) printf("(medico/a)\n");
+            else if (clinica->funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+            else printf("(auxiliar)\n");
+        }
     }
     printf("Profissional -> ");
     scanf("%d", &opcao);
@@ -555,7 +634,9 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
 
         for (int i = 0; i < clinica->nFuncionarios; i++)
         {
-            if (opcao == clinica->funcionarios[i].id) indice = i;
+            if (clinica->funcionarios[i].valido == true){
+                if (opcao == clinica->funcionarios[i].id) indice = i;
+            }
         }
 
         while (indice == -1)
@@ -565,7 +646,9 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
 
             for (int i = 0; i < clinica->nFuncionarios; i++)
             {
-                if (opcao == clinica->funcionarios[i].id) indice = i;
+                if (clinica->funcionarios[i].valido == true){
+                    if (opcao == clinica->funcionarios[i].id) indice = i;
+                }
             }
         }
 
@@ -591,10 +674,12 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
 
         for (int i = 0; i < clinica->nFuncionarios; i++)
         {   
-            printf("[%d] - %s ", clinica->funcionarios[i].id, clinica->funcionarios[i].nome);
-            if (clinica->funcionarios[i].profissao == 1) printf("(medico/a)\n");
-            else if (clinica->funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
-            else printf("(auxiliar)\n");
+            if (clinica->funcionarios[i].valido == true){  
+                printf("[%d] - %s ", clinica->funcionarios[i].id, clinica->funcionarios[i].nome);
+                if (clinica->funcionarios[i].profissao == 1) printf("(medico/a)\n");
+                else if (clinica->funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+                else printf("(auxiliar)\n");
+            }
         }
         printf("Profissional -> ");
         scanf("%d", &opcao);
@@ -604,7 +689,7 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
     return;
 }
 
-//CONCLUIDO FIX
+//CONCLUIDO FIX POR FAZER
 int escolhaClinica(Rede *rede){
     int opcao;
 
@@ -666,23 +751,25 @@ void resumoIdadesVencimentos(Rede *rede){
 
         for (int j = 0; j < rede->clinicas[i].nFuncionarios; j++)
         {
-            if (rede->clinicas[i].funcionarios[j].profissao == 3)
-            {
-                if (rede->clinicas[i].funcionarios[j].genero == 'm') somaTotalVencimentosAuxMasc = somaTotalVencimentosAuxMasc + rede->clinicas[i].funcionarios[j].vencimento;
-                else somaTotalVencimentosAuxFem = somaTotalVencimentosAuxFem + rede->clinicas[i].funcionarios[j].vencimento;
-            }
-            else if (rede->clinicas[i].funcionarios[j].profissao == 1)
-            {
-                if (rede->clinicas[i].funcionarios[j].genero == 'm') somaTotalVencimentosMedMasc = somaTotalVencimentosMedMasc + rede->clinicas[i].funcionarios[j].vencimento;
-                else somaTotalVencimentosMedFem = somaTotalVencimentosMedFem + rede->clinicas[i].funcionarios[j].vencimento;
-            }
-            else if (rede->clinicas[i].funcionarios[j].profissao == 2)
-            {
-                if (rede->clinicas[i].funcionarios[j].genero == 'm') somaTotalVencimentosEnfMasc = somaTotalVencimentosEnfMasc + rede->clinicas[i].funcionarios[j].vencimento;
-                else somaTotalVencimentosEnfFem = somaTotalVencimentosEnfFem + rede->clinicas[i].funcionarios[j].vencimento;
-            }
+            if (rede->clinicas[i].funcionarios[j].valido == true){
+                if (rede->clinicas[i].funcionarios[j].profissao == 3)
+                {
+                    if (rede->clinicas[i].funcionarios[j].genero == 'm') somaTotalVencimentosAuxMasc = somaTotalVencimentosAuxMasc + rede->clinicas[i].funcionarios[j].vencimento;
+                    else somaTotalVencimentosAuxFem = somaTotalVencimentosAuxFem + rede->clinicas[i].funcionarios[j].vencimento;
+                }
+                else if (rede->clinicas[i].funcionarios[j].profissao == 1)
+                {
+                    if (rede->clinicas[i].funcionarios[j].genero == 'm') somaTotalVencimentosMedMasc = somaTotalVencimentosMedMasc + rede->clinicas[i].funcionarios[j].vencimento;
+                    else somaTotalVencimentosMedFem = somaTotalVencimentosMedFem + rede->clinicas[i].funcionarios[j].vencimento;
+                }
+                else if (rede->clinicas[i].funcionarios[j].profissao == 2)
+                {
+                    if (rede->clinicas[i].funcionarios[j].genero == 'm') somaTotalVencimentosEnfMasc = somaTotalVencimentosEnfMasc + rede->clinicas[i].funcionarios[j].vencimento;
+                    else somaTotalVencimentosEnfFem = somaTotalVencimentosEnfFem + rede->clinicas[i].funcionarios[j].vencimento;
+                }
 
-            somaTotalIdades = somaTotalIdades + rede->clinicas[i].funcionarios[j].idade;
+                somaTotalIdades = somaTotalIdades + rede->clinicas[i].funcionarios[j].idade;
+            }
         }
 
         if (rede->clinicas[i].nFuncionarios == 0)
@@ -727,11 +814,13 @@ void listarMedicosApenas(Rede *rede){
             printf("\nCLINICA %s:\n\n", rede->clinicas[i].nomeClinica);
             for (int j = 0; j < rede->clinicas[i].nFuncionarios; j++)
             {
-                if (rede->clinicas[i].funcionarios[j].profissao == 1)
-                {
-                    printf("    -> NOME: %s\n", rede->clinicas[i].funcionarios[j].nome);
-                    printf("    -> VENCIMENTO: %.2f\n\n", rede->clinicas[i].funcionarios[j].vencimento);
-                    somatorio += rede->clinicas[i].funcionarios[j].vencimento;
+                if (rede->clinicas[i].funcionarios[j].valido == true){
+                    if (rede->clinicas[i].funcionarios[j].profissao == 1)
+                    {
+                        printf("    -> NOME: %s\n", rede->clinicas[i].funcionarios[j].nome);
+                        printf("    -> VENCIMENTO: %.2f\n\n", rede->clinicas[i].funcionarios[j].vencimento);
+                        somatorio += rede->clinicas[i].funcionarios[j].vencimento;
+                    }
                 }
             }
         }
@@ -775,10 +864,13 @@ void contaAgenda(Rede *rede, int indice){
     for (int i = 0; i < rede->clinicas[indice].nFuncionarios; i++)
     {
         contador = 0;
-        if (rede->clinicas[indice].funcionarios[i].profissao == 2)
-        {
-            contador += rede->clinicas[indice].funcionarios[i].nCompromissos;
-            printf("Enfermeiro/a %s tem %d compromisso/s\n", rede->clinicas[indice].funcionarios[i].nome, contador);
+        
+        if (rede->clinicas[indice].funcionarios[i].valido == true){
+            if (rede->clinicas[indice].funcionarios[i].profissao == 2)
+            {
+                contador += rede->clinicas[indice].funcionarios[i].nCompromissos;
+                printf("Enfermeiro/a %s tem %d compromisso/s\n", rede->clinicas[indice].funcionarios[i].nome, contador);
+            }
         }
     }
 
@@ -793,7 +885,7 @@ void apresentaAgenda(Rede *rede){
 
     if (rede->nClinicas == 0){
         apresentacaoTitulo();
-        printf("Aplicacao nao tem nenhuma clinica adicionada ainda!\n\n");
+        printf("APLICACAO NAO TEM NENHUMA CLINICA ADICIONADA AINDA\n\n");
         printf("Pressione ENTER para continuar");
         fflush(stdin);
         getchar();
@@ -805,7 +897,7 @@ void apresentaAgenda(Rede *rede){
     while (rede->clinicas[indiceClinica].nFuncionarios <= 0)
     {
         apresentacaoTitulo();
-        printf("\n\nNENHUM FUNCIONARIO ADICIONADO AINDA!\nPressione Enter para continuar");
+        printf("\n\nNENHUM FUNCIONARIO ADICIONADO AINDA!\nPressione ENTER para continuar");
         fflush(stdin);
         getchar();
         indiceClinica = escolhaClinica(rede);
@@ -821,9 +913,11 @@ void apresentaAgenda(Rede *rede){
 
     for (int i = 0; i < rede->clinicas[indiceClinica].nFuncionarios; i++)
     {
-        if (rede->clinicas[indiceClinica].funcionarios[i].profissao == 1 || rede->clinicas[indiceClinica].funcionarios[i].profissao == 2)
-        {
-            if (indiceLimite < i) indiceLimite = i;
+        if (rede->clinicas[indiceClinica].funcionarios[i].valido == true){
+            if (rede->clinicas[indiceClinica].funcionarios[i].profissao == 1 || rede->clinicas[indiceClinica].funcionarios[i].profissao == 2)
+            {
+                if (indiceLimite < i) indiceLimite = i;
+            }
         }
     }
 
@@ -832,11 +926,13 @@ void apresentaAgenda(Rede *rede){
 
     for (int i = 0; i < rede->clinicas[indiceClinica].nFuncionarios; i++)
     {   
-        if (rede->clinicas[indiceClinica].funcionarios[i].profissao != 3)
-        {
-            printf("[%d] - %s ", rede->clinicas[indiceClinica].funcionarios[i].id, rede->clinicas[indiceClinica].funcionarios[i].nome);
-            if (rede->clinicas[indiceClinica].funcionarios[i].profissao == 1) printf("(medico/a)\n");
-            else if (rede->clinicas[indiceClinica].funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+        if (rede->clinicas[indiceClinica].funcionarios[i].valido == true){
+            if (rede->clinicas[indiceClinica].funcionarios[i].profissao != 3)
+            {
+                printf("[%d] - %s ", rede->clinicas[indiceClinica].funcionarios[i].id, rede->clinicas[indiceClinica].funcionarios[i].nome);
+                if (rede->clinicas[indiceClinica].funcionarios[i].profissao == 1) printf("(medico/a)\n");
+                else if (rede->clinicas[indiceClinica].funcionarios[i].profissao == 2) printf("(enfermeiro/a)\n");
+            }
         }
     }
 
@@ -853,7 +949,9 @@ void apresentaAgenda(Rede *rede){
 
     for (int i = 0; i < rede->clinicas[indiceClinica].nFuncionarios; i++)
     {
-        if (opcao == rede->clinicas[indiceClinica].funcionarios[i].id) indiceFuncionario = i;
+        if (rede->clinicas[indiceClinica].funcionarios->valido == true){
+            if (opcao == rede->clinicas[indiceClinica].funcionarios[i].id) indiceFuncionario = i;
+        }
     }
 
     printf("\nAgenda do profissional de saude %s:\n", rede->clinicas[indiceClinica].funcionarios[indiceFuncionario].nome);
