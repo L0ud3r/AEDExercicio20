@@ -4,6 +4,8 @@
 #define TAMNOMECLINICA 20
 #define NUMCLINICAS 10
 
+typedef enum{false, true} bool;
+
 typedef struct{
     char nome[TAMNOME];
     int sns;
@@ -15,12 +17,14 @@ typedef struct{
     int idade, profissao, nCompromissos, id;
     float vencimento;
     Utente calendario[TAMAGENDA];
+    bool valido;
 } Funcionario;
 
 typedef struct{
     char nomeClinica[TAMNOMECLINICA];
     Funcionario funcionarios[TAMFUNCIONARIOS];
     int nFuncionarios, id, nMedicos, nEnfermeiros, nAuxiliares;
+    bool valido;
 } Clinica;
 
 typedef struct{

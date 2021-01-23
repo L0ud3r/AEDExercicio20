@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-
 #pragma region VALORES TESTE
 
 void atribuirValoresTeste(Rede *rede){
@@ -178,95 +177,84 @@ void atribuirValoresTeste(Rede *rede){
 
 }
 
-
 #pragma endregion
 
-//CONCLUIDO
+//CONCLUIDO FIX FALTA APAGAR CLINICAS
 void menu(Rede *rede){
     int opcao;
     
-    apresentacaoTitulo();
-
-    printf("\n[1] ADICIONAR CLINICA   [2] ENTRAR CLINICA   [3] OPCOES RESOLUCAO DE EXERCICIOS  [4] AJUDA  [-1] SAIR");
-    printf("\n\nInsira a sua opcao: ");
-    scanf("%d", &opcao);
-    fflush(stdin);
-
-    while (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != -1)
+    do
     {
-        printf("Insira a sua opcao: ");
+        apresentacaoTitulo();
+
+        printf("\n[1] ADICIONAR CLINICA   [2] ENTRAR CLINICA   [3] OPCOES RESOLUCAO DE EXERCICIOS   [4] AJUDA   [-1] SAIR");
+        printf("\n\nInsira a sua opcao: ");
         scanf("%d", &opcao);
         fflush(stdin);
-    }
 
-    switch (opcao)
-    {
-    case 1:
-        criarFichaClinica(rede);
-        break;
-    case 2:
-        mostrarListaClinicas(rede);
-        break;
-    case 3:
-        mostrarExercicios(rede);
-        break;
-    case 4:
-        menuAjuda(rede);
-        break;
-    case -1:
-        exit(0);
-    default:
-        break;
-    }
+        switch (opcao)
+        {
+        case 1:
+            criarFichaClinica(rede);
+            break;
+        case 2:
+            mostrarListaClinicas(rede);
+            break;
+        case 3:
+            mostrarExercicios(rede);
+            break;
+        case 4:
+            menuAjuda(rede);
+            break;
+        case -1:
+            exit(0);
+        default:
+            break;
+        }
+    } while (opcao != -1);
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX
 void mostrarExercicios(Rede *rede){
     int opcao;
     
-    apresentacaoTitulo();
+    do{
+        apresentacaoTitulo();
 
-    printf("\n[1] PONTO 1   [2] PONTO 2   [3] PONTO 3   \n[4] PONTO 4   [-1] RETROCEDER");
-    printf("\n\nInsira a sua opcao: ");
-    scanf("%d", &opcao);
-    fflush(stdin);
-
-    while (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != -1)
-    {
-        printf("Insira a sua opcao: ");
+        printf("\n[1] PONTO 1   [2] PONTO 2   [3] PONTO 3   \n[4] PONTO 4   [-1] RETROCEDER");
+        printf("\n\nInsira a sua opcao: ");
         scanf("%d", &opcao);
         fflush(stdin);
-    }
 
-    switch (opcao)
-    {
-    case 1:
-        resumoIdadesVencimentos(rede);
-        break;
-    case 2:
-        listarMedicosApenas(rede);
-        break;
-    case 3:
-        contaAgenda(rede, escolhaClinica(rede));
-        break;
-    case 4:
-        apresentaAgenda(rede);
-        break;
-    case -1:
-        menu(rede);
-        break;
-    default:
-        break;
-    }
+        switch (opcao)
+        {
+        case 1:
+            resumoIdadesVencimentos(rede);
+            break;
+        case 2:
+            listarMedicosApenas(rede);
+            break;
+        case 3:
+            contaAgenda(rede, escolhaClinica(rede));
+            break;
+        case 4:
+            apresentaAgenda(rede);
+            break;
+        case -1:
+            break;
+        default:
+            break;
+        }
+    } while (opcao != -1);
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX
 void apresentacaoTitulo(){
     system("cls");
     printf("\t\t/-----------------------------------\\\n\t\t| APP REDE CLINICAS VAMOS FICAR BEM |\n\t\t\\-----------------------------------/\n");
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX
 void menuAjuda(Rede *rede){
     printf("\nBem-vindo a APP da Rede Clinica 'VAMOS TODOS FICAR BEM'.\n\n   -> Para marcar uma consulta, va a ENTRAR CLINICA e de seguida clique em AGENDAR CONSULTA, onde ira\nregistar-se inserido o seu nome, sns e data da consulta.\n");
     printf("\n   -> Se quiser criar uma ficha de um profissional de saude, mais uma vez, clique em ENTRAR CLINICA e de\nseguida clique em CRIAR FICHA FUNCIONARO.\n");
@@ -275,15 +263,14 @@ void menuAjuda(Rede *rede){
     printf("\n\nPrima Enter para continuar");
     fflush(stdin);
     getchar();
-
-    menu(rede);
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX
 void criarFichaClinica(Rede *rede){
 
     char nomeAux[TAMNOMECLINICA];
     int teste = rede->nClinicas;
+
     apresentacaoTitulo();
     
     printf("\n\nInsira 'cancelar' para voltar a pagina anterior");
@@ -293,9 +280,9 @@ void criarFichaClinica(Rede *rede){
 
     if (strcasecmp(nomeAux, "cancelar") == 0)
     {
-        menu(rede);
+        return;
     }
-    //rede->clinicas[teste].nomeClinica;
+    
     strcpy(rede->clinicas[teste].nomeClinica, nomeAux);
     rede->clinicas[rede->nClinicas].id = rede->nClinicas + 1;
 
@@ -303,12 +290,12 @@ void criarFichaClinica(Rede *rede){
     rede->clinicas[rede->nClinicas].nMedicos = 0;
     rede->clinicas[rede->nClinicas].nEnfermeiros = 0;
     rede->clinicas[rede->nClinicas].nAuxiliares = 0;
+    rede->clinicas[rede->nClinicas].valido = true;
 
     rede->nClinicas++;
-    menu(rede);
 }
 
-//CONCLUIDO DUVIDA EM CHAMAR FUNCAO CLINICA COM INDICE
+//CONCLUIDO FIX
 void mostrarListaClinicas(Rede *rede){
     int opcao;
 
@@ -319,7 +306,7 @@ void mostrarListaClinicas(Rede *rede){
         printf("Pressione Enter para continuar");
         fflush(stdin);
         getchar();
-        menu(rede);
+        return;
     }
 
     printf("\nInsira -1 para retroceder\nEscolha uma clinica:\n\n");
@@ -334,7 +321,7 @@ void mostrarListaClinicas(Rede *rede){
 
     if (opcao == -1)
     {
-        menu(rede);
+        return;
     }
 
     while (opcao < 1 || opcao > rede->nClinicas)
@@ -346,10 +333,12 @@ void mostrarListaClinicas(Rede *rede){
     menuClinica(&rede->clinicas[opcao - 1], rede);    
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX APAGAR FUNIONARIOS
 void menuClinica(Clinica *clinica, Rede *rede){
     int opcao;
     
+    do
+    {
     apresentacaoTitulo();
 
     printf("\n[1] ADICIONAR FUNCIONARIO   [2] MARCAR CONSULTA   [3] VER FICHA FUNCIONARIO  [-1] RETROCEDER");
@@ -357,33 +346,27 @@ void menuClinica(Clinica *clinica, Rede *rede){
     scanf("%d", &opcao);
     fflush(stdin);
 
-    while (opcao != 1 && opcao != 2 && opcao != 3 && opcao != -1)
-    {
-        printf("Insira a sua opcao: ");
-        scanf("%d", &opcao);
-        fflush(stdin);
-    }
-
-    switch (opcao)
-    {
-    case 1:
-        criarFichaFuncionario(clinica, rede);
-        break;
-    case 2:
-        marcarConsulta(clinica, rede);
-        break;
-    case 3:
-        verFichaFuncionario(clinica, rede);
-        break;
-    case -1:
-        menu(rede);
-        break;
-    default:
-        break;
-    }
+    
+        switch (opcao)
+        {
+        case 1:
+            criarFichaFuncionario(clinica, rede);
+            break;
+        case 2:
+            marcarConsulta(clinica, rede);
+            break;
+        case 3:
+            verFichaFuncionario(clinica, rede);
+            break;
+        case -1:
+            return;
+        default:
+            break;
+        }
+    } while (opcao != -1);
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX
 void criarFichaFuncionario(Clinica *clinica, Rede *rede){
     char nomeAux[TAMNOME];
 
@@ -396,7 +379,7 @@ void criarFichaFuncionario(Clinica *clinica, Rede *rede){
     
     if (strcasecmp(nomeAux, "sair") == 0)
     {
-        menuClinica(clinica, rede);
+        return;
     }
 
     strcpy(clinica->funcionarios[clinica->nFuncionarios].nome, nomeAux);
@@ -447,16 +430,15 @@ void criarFichaFuncionario(Clinica *clinica, Rede *rede){
         printf("VENCIMENTO: ");
         scanf("%f", &clinica->funcionarios[clinica->nFuncionarios].vencimento);
     }
-    
+    fflush(stdin);
 
     clinica->funcionarios[clinica->nFuncionarios].id = clinica->nFuncionarios + 1;
     clinica->funcionarios[clinica->nFuncionarios].nCompromissos = 0;
+    clinica->funcionarios[clinica->nFuncionarios].valido = true;
     clinica->nFuncionarios++;
-
-    menuClinica(clinica, rede);
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX
 void marcarConsulta(Clinica *clinica, Rede *rede){
     int opcao, indice = -1, tempSNS;
 
@@ -466,7 +448,7 @@ void marcarConsulta(Clinica *clinica, Rede *rede){
         printf("Ainda nao foi adicionado nenhum medico ou enfermeiro a esta clinica!\n\nPressione ENTER para continuar");
         fflush(stdin);
         getchar();
-        menuClinica(clinica, rede);
+        return;
     }
 
     printf("\nInsira -1 para retroceder\nEscolha um profissional:\n");
@@ -485,7 +467,7 @@ void marcarConsulta(Clinica *clinica, Rede *rede){
 
     if (opcao == -1)
     {
-        menuClinica(clinica, rede);
+        return;
     }
     
 
@@ -533,10 +515,15 @@ void marcarConsulta(Clinica *clinica, Rede *rede){
     clinica->funcionarios[indice].calendario[clinica->funcionarios[indice].nCompromissos].nome[strlen(clinica->funcionarios[indice].calendario[clinica->funcionarios[indice].nCompromissos].nome) - 1] = '\0';
     
     clinica->funcionarios[indice].nCompromissos++;
-    menuClinica(clinica, rede);
+    return;
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX
+void apagarFuncionario(Clinica *clinica){
+    
+}
+
+//CONCLUIDO FIX
 void verFichaFuncionario(Clinica *clinica, Rede *rede){
     int opcao, indice = -1;
 
@@ -547,7 +534,7 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
         printf("\n\nNenhum funcionario adicionado ainda!\nPressione Enter para continuar");
         fflush(stdin);
         getchar();
-        menuClinica(clinica, rede);
+        return;
     }
     
 
@@ -614,20 +601,17 @@ void verFichaFuncionario(Clinica *clinica, Rede *rede){
 
     } while (opcao != -1);
 
-    menuClinica(clinica, rede);
+    return;
 }
 
-//CONCLUIDO
+//CONCLUIDO FIX
 int escolhaClinica(Rede *rede){
     int opcao;
 
     apresentacaoTitulo();
 
     if (rede->nClinicas <= 0){
-        printf("Aplicacao nao tem nenhuma clinica adicionada ainda!\n\nPressione Enter para continuar");
-        fflush(stdin);
-        getchar();
-        mostrarExercicios(rede);
+        return -1;
     }
 
     printf("\nInsira -1 para retroceder\nEscolha uma clinica:\n\n");
@@ -654,7 +638,7 @@ int escolhaClinica(Rede *rede){
     return (opcao - 1);
 }
 
-//Exercicio1 CONCLUIDO
+//Exercicio1 CONCLUIDO FIX
 void resumoIdadesVencimentos(Rede *rede){
 
     apresentacaoTitulo();
@@ -664,7 +648,7 @@ void resumoIdadesVencimentos(Rede *rede){
         printf("Pressione ENTER para continuar");
         fflush(stdin);
         getchar();
-        mostrarExercicios(rede);
+        return;
     }
 
     int somaTotalIdades;
@@ -717,10 +701,10 @@ void resumoIdadesVencimentos(Rede *rede){
     printf("\nPressione ENTER para continuar");
     fflush(stdin);
     getchar();
-    mostrarExercicios(rede);
+    return;
 }
 
-//Exercicio2 CONCLUIDO
+//Exercicio2 CONCLUIDO FIX
 void listarMedicosApenas(Rede *rede){
 
     apresentacaoTitulo();
@@ -730,7 +714,7 @@ void listarMedicosApenas(Rede *rede){
         printf("Pressione ENTER para continuar");
         fflush(stdin);
         getchar();
-        mostrarExercicios(rede);
+        return;
     }
 
     float somatorio = 0.0F;
@@ -759,22 +743,22 @@ void listarMedicosApenas(Rede *rede){
     printf("\nPressione ENTER para continuar");
     fflush(stdin);
     getchar();
-    mostrarExercicios(rede);
+    return;
 }
 
-//Exercicio3 CONCLUIDO
+//Exercicio3 CONCLUIDO FIX
 void contaAgenda(Rede *rede, int indice){
 
     int contador;
 
     apresentacaoTitulo();
 
-    if (rede->nClinicas == 0){
+    if (rede->nClinicas <= 0){
         printf("Aplicacao nao tem nenhuma clinica adicionada ainda!\n\n");
         printf("Pressione ENTER para continuar");
         fflush(stdin);
         getchar();
-        mostrarExercicios(rede);
+        return;
     }
     
     if (rede->clinicas[indice].nEnfermeiros <= 0)
@@ -785,6 +769,8 @@ void contaAgenda(Rede *rede, int indice){
         indice = escolhaClinica(rede);
         apresentacaoTitulo();
     }
+
+    if (indice == -1) return;
 
     for (int i = 0; i < rede->clinicas[indice].nFuncionarios; i++)
     {
@@ -799,10 +785,10 @@ void contaAgenda(Rede *rede, int indice){
     printf("\nPrima ENTER para continuar");
     fflush(stdin);
     getchar();
-    mostrarExercicios(rede);
+    return;
 }
 
-//Exercicio4 CONCLUIDO NENHUMA CLINICA ADICIONADO AINDA!
+//Exercicio4 CONCLUIDO FIX
 void apresentaAgenda(Rede *rede){
 
     if (rede->nClinicas == 0){
@@ -811,7 +797,7 @@ void apresentaAgenda(Rede *rede){
         printf("Pressione ENTER para continuar");
         fflush(stdin);
         getchar();
-        mostrarExercicios(rede);
+        return;
     }
 
     int indiceClinica = escolhaClinica(rede) , indiceFuncionario, opcao, indiceLimite = -1;
@@ -830,7 +816,7 @@ void apresentaAgenda(Rede *rede){
         printf("\nAINDA NAO FOI INTRODUZIDO NENHUM MEDICO OU ENFERMEIRO NESTA CLINICA!");
         fflush(stdin);
         getchar();
-        mostrarExercicios(rede);
+        return;
     }
 
     for (int i = 0; i < rede->clinicas[indiceClinica].nFuncionarios; i++)
@@ -857,7 +843,7 @@ void apresentaAgenda(Rede *rede){
     printf("\nProfissional -> ");
     scanf("%d", &opcao);
 
-    if (opcao == -1) mostrarExercicios(rede);
+    if (opcao == -1) return;
     while (opcao < 1 || opcao > indiceLimite + 1)
     {
         printf("Profissional -> ");
@@ -877,7 +863,7 @@ void apresentaAgenda(Rede *rede){
         printf("\nPressione ENTER para continuar");
         fflush(stdin);
         getchar();
-        mostrarExercicios(rede);
+        return;
     }
     for (int i = 0; i < rede->clinicas[indiceClinica].funcionarios[indiceFuncionario].nCompromissos; i++)
     {
@@ -889,5 +875,5 @@ void apresentaAgenda(Rede *rede){
     printf("\nPressione ENTER para continuar");
     fflush(stdin);
     getchar();
-    mostrarExercicios(rede);
+    return;
 }

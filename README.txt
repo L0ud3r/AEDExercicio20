@@ -1,7 +1,7 @@
-PROGRAMA QUASE COMPLETO!!!!
-Conclusao em menus
-Testes feitos
-
+ALTERAÇAO NO PROGRAMA: MENU() POR RETURNS -> STACKOVERFLOWN FIXED;
+Criacao bool;
+Mudança nas structs: clinicas.valido(bool) e funcionarios.valido(bool)
 
 POR FAZER:
-Ver detalhes de informaçao zerada ou em falta (ultimos testes)
+Apagar funcionario()
+Apagar clinicas()
