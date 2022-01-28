@@ -812,7 +812,7 @@ void listarMedicosApenas(Rede *rede){
         }
     }
 
-    printf("\nTOTAL DE TODOS OS VENCIMENTOS: %.2f", somatorio);
+    if (rede->clinicas->nFuncionarios != 0) printf("\nTOTAL DE TODOS OS VENCIMENTOS: %.2f", somatorio);
 
     printf("\nPressione ENTER para continuar");
     fflush(stdin);
